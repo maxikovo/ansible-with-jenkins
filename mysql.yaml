@@ -45,5 +45,5 @@
         login_user: root
         login_password: ""
         name: wpuser
-        password: wpuser_password_replace_with_your_own
+        password: wpuser
         priv: 'wordpress.*:ALL'
