@@ -20,8 +20,6 @@
         update_cache: yes
         cache_valid_time: 3600
       when: ansible_os_family == "Debian"
-    - name: Deletes anonymous MySQL server user for localhost
-      mysql_user: user="" state="absent" login_password="" login_user=root
     - name: Secures the MySQL root user
       mysql_user: user="root" password="" host="{{item}}" login_password="" login_user=root
       with_items:
