@@ -6,7 +6,7 @@
     - vars/default.yml
   tasks:
     - name: Install prerequisites
-      apt: name=aptitude update_cache=yes state=present force_apt_get=yes
+      apt: name=aptitude update_cache=yes state=present
       tags: [ system ]
 
     - name: Install LAMP Packages
