@@ -1,20 +1,21 @@
 ---
 - hosts: all
   become: true
+  become_user: root
   vars_files:
     - vars/default.yml
   tasks:
     - name: Install prerequisites
-      apt: name=aptitude update_cache=yes state=latest force_apt_get=yes
+      apt: name=aptitude update_cache=yes state=present force_apt_get=yes
       tags: [ system ]
 
     - name: Install LAMP Packages
-      apt: name={{ item }} update_cache=yes state=latest
+      apt: name={{ item }} update_cache=yes state=present
       loop: [ 'apache2', 'mysql-server', 'python3-pymysql', 'php', 'php-mysql', 'libapache2-mod-php' ]
       tags: [ system ]
 
     - name: Install PHP Extensions
-      apt: name={{ item }} update_cache=yes state=latest
+      apt: name={{ item }} update_cache=yes state=present
       loop: "{{ php_modules }}"
       tags: [ system ]
 
