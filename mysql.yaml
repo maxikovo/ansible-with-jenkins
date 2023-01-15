@@ -6,9 +6,9 @@
     MySQL_root_pass: StrongP@ssw0rd
   tasks:
     - name: Set MySQL root password before installing
-      debconf: name="mysql-server" question="mysql-server/root_password" value="" vtype="password"
+      debconf: name="mysql-server" question="mysql-server/root_password" value="{{ MySQL_root_pass | quote }}" vtype="password"
     - name: Confirm MySQL root password before installing
-      debconf: name="mysql-server" question="mysql-server/root_password_again" value="" vtype="password"
+      debconf: name="mysql-server" question="mysql-server/root_password_again" value="{{ MySQL_root_pass | quote }}" vtype="password"
     - name: test1
       apt:
         package:
@@ -22,7 +22,7 @@
         cache_valid_time: 3600
       when: ansible_os_family == "Debian"
     - name: Secures the MySQL root user
-      mysql_user: user="root" password="" host="{{item}}" login_password="" login_user=root
+      mysql_user: user="root" password="{{ MySQL_root_pass }}" host="{{item}}" login_password="{{ MySQL_root_pass }}" login_user=root
       with_items:
         - 127.0.0.1
         - localhost
@@ -34,14 +34,14 @@
     - name: Create a new database called wordpress
       mysql_db:
         login_user: root
-        login_password: ""
+        login_password: "{{ MySQL_root_pass }}"
         name: wordpress
         state: present
 
     - name: Configure new MySQL user called wpuser
       mysql_user:
         login_user: root
-        login_password: ""
+        login_password: "{{ MySQL_root_pass }}"
         name: wpuser
         password: wpuser
         priv: 'wordpress.*:ALL'
