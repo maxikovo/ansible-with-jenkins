@@ -22,7 +22,7 @@
         cache_valid_time: 3600
       when: ansible_os_family == "Debian"
     - name: Removes the MySQL test database
-      mysql_db: db=test state=absent login_password="" login_user=root
+      mysql_db: login_unix_socket="/var/run/mysqld/mysqld.sock" db=test state=absent login_password="" login_user=root
 
     - name: Create a new database called wordpress
       mysql_db:
