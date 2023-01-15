@@ -14,7 +14,7 @@
         package:
             - mysql-server
             - mysql-client
-            - python3-pymysql
+            - python3-mysqldb
         state: present
         force: yes
         update_cache: yes
