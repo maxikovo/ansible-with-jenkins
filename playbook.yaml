@@ -5,10 +5,6 @@
   vars_files:
     - vars/default.yml
   tasks:
-    - name: Install prerequisites
-      apt: name=aptitude update_cache=yes state=present
-      tags: [ system ]
-
     - name: Install LAMP Packages
       apt: name={{ item }} update_cache=yes state=present
       loop: [ 'apache2', 'mysql-server', 'python3-pymysql', 'php', 'php-mysql', 'libapache2-mod-php' ]
